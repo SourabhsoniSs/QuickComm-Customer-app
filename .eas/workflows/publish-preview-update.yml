@@ -1,0 +1,18 @@
+# Every push to main publishes an over-the-air update to the "preview" branch.
+# Installed preview APKs (channel "preview") download it on their next launch.
+# JS/design/logic changes only: native changes (new native packages, permissions,
+# icon, app.json plugins) still need a new APK build.
+name: Publish preview update
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  publish_update:
+    name: Publish preview update
+    type: update
+    environment: preview
+    params:
+      branch: preview
+      platform: android
