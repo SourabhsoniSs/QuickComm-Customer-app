@@ -1,20 +1,15 @@
 import { create } from 'axios';
-import Constants from 'expo-constants';
+
+/** The live backend the website uses. */
+const DEFAULT_API_URL = 'https://atozgrocery.com/api';
 
 /**
- * Backend base URL.
- * 1. EXPO_PUBLIC_API_URL from .env (use your deployed backend or LAN IP).
- * 2. Otherwise the dev machine's LAN IP (from the Expo dev server) on port 5000,
- *    which is where the website's .env points the backend.
+ * Backend base URL: EXPO_PUBLIC_API_URL when set (e.g. a local backend such as
+ * http://<your-pc-ip>:5000/api while developing), otherwise the live backend.
  */
 function resolveBaseUrl() {
-  const env = process.env.EXPO_PUBLIC_API_URL;
-  if (env) {
-    const trimmed = env.replace(/\/+$/, '');
-    return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
-  }
-  const host = Constants.expoConfig?.hostUri?.split(':')[0] ?? 'localhost';
-  return `http://${host}:5000/api`;
+  const env = (process.env.EXPO_PUBLIC_API_URL || DEFAULT_API_URL).replace(/\/+$/, '');
+  return env.endsWith('/api') ? env : `${env}/api`;
 }
 
 export const API_BASE_URL = resolveBaseUrl();

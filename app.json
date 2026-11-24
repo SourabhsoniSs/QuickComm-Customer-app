@@ -45,14 +45,6 @@
         {
           "locationWhenInUsePermission": "A to Z Grocery uses your location to show shops and delivery prices near you."
         }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "usesCleartextTraffic": true
-          }
-        }
       ]
     ],
     "experiments": {
